@@ -11,7 +11,7 @@ wheel_radius = 0.035 # In meters
 robot_mass = 6.8 # In kg
 motor_count = 6
 
-maxTime = 1.0
+maxTime = 0.75
 
 # Time array
 time = np.linspace(0, maxTime, 500)  # 10 seconds, 500 points
