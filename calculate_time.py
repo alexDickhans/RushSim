@@ -1,3 +1,4 @@
+import matplotlib.pyplot as plt
 import numpy as np
 from scipy.integrate import solve_ivp
 from utils import calculate_torque, Gear
@@ -20,15 +21,21 @@ def acceleration(t, y):
 initial_conditions = [0, 0]
 
 # Time span for the integration
-time_span = (0, 10)  # 10 seconds
+time_span = (0, 0.9)  # 10 seconds
 
 # Solve the differential equation
-solution = solve_ivp(acceleration, time_span, initial_conditions, dense_output=True, events=lambda t, y: y[0] - target_distance)
+solution = solve_ivp(acceleration, time_span, initial_conditions, dense_output=True, max_step=0.001, events=lambda t, y: y[0] - target_distance)
 
-# Extract the time to reach the target distance
-time_to_reach_distance = solution.t_events[0][0] if solution.t_events[0].size > 0 else None
+# Extract the distance and time
+distance = solution.y[0]
+time = solution.t
 
-if time_to_reach_distance is not None:
-    print(f"Time to reach {target_distance} meters: {time_to_reach_distance:.2f} seconds")
-else:
-    print(f"The robot did not reach {target_distance} meters within the time span.")
+# Plotting
+plt.figure(figsize=(10, 6))
+plt.plot(distance, time, label='Time over distance', color='orange')
+plt.xlabel('Distance (m)')
+plt.ylabel('Time (s)')
+plt.title('Time over Distance')
+plt.legend()
+plt.grid(True)
+plt.show()
