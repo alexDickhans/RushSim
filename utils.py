@@ -20,7 +20,8 @@ def calculate_torque(speed, gear: Gear, ratio, radius, friction_coefficient=0.02
     friction_torque = friction_coefficient * speed
     return base_torque - friction_torque
 
-
+def in_to_m(inches):
+    return inches * 0.0254
 
 
 
