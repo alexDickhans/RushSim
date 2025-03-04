@@ -1,5 +1,4 @@
 import matplotlib.pyplot as plt
-import numpy as np
 from scipy.integrate import solve_ivp
 from drivetrain import Drivetrain
 from utils import Gear, in_to_m
@@ -11,7 +10,6 @@ drivetrains = [
     Drivetrain("450 rpm, 3.25 in", 36.0 / 48.0, Gear.BLUE, in_to_m(3.25/2), 6.8, 6, 0.02),
     Drivetrain("360 rpm, 3.25 in", 36.0 / 60.0, Gear.BLUE, in_to_m(3.25/2), 6.8, 6, 0.02),
     Drivetrain("600 rpm, 2.75 in", 1.0, Gear.BLUE, in_to_m(2.75/2), 6.8, 6, 0.02),
-    Drivetrain("600 rpm, 2.75 in, 8 m", 1.0, Gear.BLUE, in_to_m(2.75/2), 6.8, 8, 0.02),
 ]
 
 # Target distance
@@ -22,6 +20,7 @@ time_span = (0, 0.70)  # 10 seconds
 
 # Positions for vertical lines
 vertical_lines = [target_distance, target_distance + 0.15]
+names = ["Target", "Target + 6 inches"]
 
 plt.figure(figsize=(10, 6))
 
@@ -51,8 +50,8 @@ for drivetrain in drivetrains:
     plt.plot(distance, time, label=drivetrain.name)
 
 # Add vertical lines
-for vline in vertical_lines:
-    plt.axvline(x=vline, color='r', linestyle='--', label=f'vline at {vline:.3f} m')
+for i, vline in enumerate(vertical_lines):
+    plt.axvline(x=vline, color='r', linestyle='--', label=names[i])
 
 plt.xlabel('Distance (m)')
 plt.ylabel('Time (s)')
