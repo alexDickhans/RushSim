@@ -13,7 +13,7 @@ drivetrains = [
 ]
 
 # Target distance
-target_distance = 0.91
+target_distance = 1.06
 
 # Time span for the integration
 time_span = (0, 0.70)  # 10 seconds
