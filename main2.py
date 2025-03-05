@@ -12,7 +12,7 @@ gear = Gear.BLUE
 wheel_radius = 0.035  # In meters
 robot_mass = 6.8  # In kg
 motor_count = 6
-maxTime = 0.53
+maxTime = 0.75
 
 # Time array
 time = np.linspace(0, maxTime, 500)  # 10 seconds, 500 points
@@ -29,7 +29,7 @@ direction = 1
 
 for i in range(1, len(time)):
     dt = time[i] - time[i-1]
-    accel = -acceleration(0.0) * 2 if 1.3/2 < distance[i-1] or direction < 0 else acceleration(speed[i-1])
+    accel = (-acceleration(0.0) * 2 if speed[i-1] > 0 else -acceleration(speed[i-1])) if 0.6 < distance[i-1] or direction < 0 else acceleration(speed[i-1])
     speed[i] = speed[i-1] + accel * dt * direction
     distance[i] = distance[i-1] + speed[i-1] * dt
 
